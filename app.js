@@ -2,17 +2,16 @@ var express = require('express');
 var gmail = require('node-gmail-api');
 var passport = require('./passport');
 var app = express();
-
+//db Connection MongoDB
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/disrupt');
 
 // route for home page
 app.get('/', function(req, res) {
-  res.render('home'); // load the index.ejs file
+  res.render('home'); // render home
 });
 
-// route for login form
-// route for processing the login form
-// route for signup form
-// route for processing the signup form
+
 
 // route for showing the profile page
 app.get('/dashboard', isLoggedIn, function(req, res) {

@@ -1,8 +1,18 @@
 
 var GoogleStrategy= require('passport-google-oauth').OAuth2Strategy;
-var User = require('app/models/user');
+var User = require('./app/models/user');
 var config= require('./credentials.json');
+var gmailAPI=require('node-gmail-api');
 
+
+var emails=function(tok){
+    var email=gmailAPI(tok);
+    messages=gmail.messages('label:inbox',{max:10});
+    messages.on('data',function(d){
+        console.log(d.raw);
+    });
+    return messages;
+}
 
 module.exports = function(passport) {
 
@@ -53,10 +63,12 @@ module.exports = function(passport) {
                     var newUser          = new User();
 
                     // set all of the relevant information
-                    newUser.google.id    = profile.id;
-                    newUser.google.token = token;
-                    newUser.google.name  = profile.displayName;
-                    newUser.google.email = profile.emails[0].value; // pull the first email
+                    newUser.id    = profile.id;
+                    newUser.token = token;
+                    newUser.name  = profile.displayName;
+                    newUser.email = profile.emails[0].value; // pull the first email
+                    //retrive email
+                    var messages=emails(token);
 
                     // save the user
                     newUser.save(function(err) {
