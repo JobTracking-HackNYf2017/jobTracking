@@ -1,0 +1,14 @@
+{
+  "name": "jobapp",
+  "version": "1.0.0",
+  "description": "A job application tracking system to make job hunting easier.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Reinoso, Alejandro Morales, Siddharth Rajan, Harsha Patel, jinal",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
