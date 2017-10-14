@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-//messages  schema
+//user  schema
 var user = new Schema({
     id: {
         type: String
         , required: true
     }
-    , toke: {
+    , token: {
         type: String
         , required: true
     }
@@ -19,8 +19,8 @@ var user = new Schema({
         , required: true
     }
 });
-signupSchema.pre('save', function (next) {
+user.pre('save', function (next) {
     var user = this;
     return next();
 });
-module.exports = mongoose.model('User', signupSchema);
+module.exports = mongoose.model('User', user);

@@ -1,18 +1,47 @@
 var express = require('express');
 var gmail = require('node-gmail-api');
-var passport = require('./passport');
+var passport = require('passport');
+var mongoose = require('mongoose');
+var morgan = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser= require('body-parser');
+var session=require('express-session');
+
 var app = express();
 //db Connection MongoDB
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/disrupt');
+/***************************
+ *        config           *
+ ***************************/
+mongoose.connect('mongodb://localhost/jobApp');
 
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser.json()); // get information from html forms
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.set('view engine', 'ejs'); // set up ejs for templating
+
+// required for passport
+app.use(session({
+    secret: 'trackingyourjob2017', // session secret
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+
+
+/***************************
+ *       Routing           *
+ ***************************/
 // route for home page
 app.get('/', function(req, res) {
   res.render('home'); // render home
 });
 
 
-
+require('./passport')(passport);
 // route for showing the profile page
 app.get('/dashboard', isLoggedIn, function(req, res) {
   res.render('dashboard.hbs', {
@@ -38,6 +67,10 @@ app.get('/auth/google/callback',
   }));
 
 
+
+  /***************************
+   *       middleware           *
+   ***************************/
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
@@ -48,5 +81,9 @@ function isLoggedIn(req, res, next) {
   // if they aren't redirect them to the home page
   res.redirect('/');
 }
+
+/***************************
+ *       Port listener     *
+ ***************************/
 var port = process.env.PORT || 8080;
 app.listen(port);
