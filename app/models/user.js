@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 //user  schema
-var user = new Schema({
+var userSchema = new Schema({
     id: {
         type: String
         , required: true
@@ -19,8 +19,12 @@ var user = new Schema({
         , required: true
     }
 });
-user.pre('save', function (next) {
-    var user = this;
-    return next();
-});
-module.exports = mongoose.model('User', user);
+// generating a hash
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.local.password);
+};
+
+module.exports = mongoose.model('User', userSchema);

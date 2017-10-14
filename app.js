@@ -36,15 +36,16 @@ app.use(passport.session()); // persistent login sessions
  *       Routing           *
  ***************************/
 // route for home page
+// routes for testing ( they will change once front is done)
 app.get('/', function(req, res) {
-  res.render('home'); // render home
+  res.render('index.ejs'); // render home
 });
 
 
 require('./passport')(passport);
 // route for showing the profile page
 app.get('/dashboard', isLoggedIn, function(req, res) {
-  res.render('dashboard.hbs', {
+  res.render('profile.ejs', {
     user: req.user // get the user out of session and pass to template
   });
 });
