@@ -9,6 +9,10 @@
   "author": "Kevin Reinoso, Alejandro Morales, Siddharth Rajan, Harsha Patel, jinal",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "node-gmail-api": "^0.6.1",
+    "passport": "^0.4.0",
+    "passport-google-auth": "^1.0.2",
+    "passport-google-oauth": "^1.0.0"
   }
 }
