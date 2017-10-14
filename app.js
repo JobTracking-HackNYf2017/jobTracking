@@ -1,6 +1,6 @@
 var express = require('express');
 var gmail = require('node-gmail-api');
-
+var passport = require('./passport');
 var app = express();
 
 
