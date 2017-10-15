@@ -1,0 +1,9 @@
+$('#times').click(function(){
+  window.location='https://localhost:8000/times';
+});
+$('#tesla').click(function(){
+window.location='https://localhost:8000/tesla';
+});
+$('#bloomberg').click(function(){
+  window.location='https://localhost:8000/bloomberg';
+});

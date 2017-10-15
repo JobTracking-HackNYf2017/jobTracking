@@ -55,7 +55,13 @@ app.get('/', function(req, res) {
   res.render('landingpage.ejs'); // render home
 });
 
+app.get('/bloomberg',function(req, res) {
+    res.render('companydetails.ejs');
+});
 
+app.get('/times',function(req, res) {
+    res.render('companydetails.ejs');
+});
 require('./passport')(passport);
 // route for showing the profile page
 app.get('/dashboard', isLoggedIn, function(req, res) {
