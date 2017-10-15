@@ -36,8 +36,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-
-
+app.get('/google50bd14559a8ebfe0.html', function(req,res){
+  res.sendfile(__dirname + '/views/google50bd14559a8ebfe0.html');
+});
 /***************************
  *       Routing           *
  ***************************/
