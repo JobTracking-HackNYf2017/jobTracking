@@ -64,11 +64,15 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/auth/google', passport.authenticate('google', {
-  scope: ['profile', 'email']
+  scope: ['https://mail.google.com',
+    'profile',
+    'email']
 }));
 
 // the callback after google has authenticated the user
-app.get('/auth/google/callback',
+//star is to allow any income token to pass thru//
+
+app.get('/auth/google/callback*',
   passport.authenticate('google', {
     successRedirect: '/dashboard',
     failureRedirect: '/'
