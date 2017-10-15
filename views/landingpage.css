@@ -1,0 +1,106 @@
+#top{
+    height:400px;
+}
+
+#title{
+    font-size:400%;
+    position:absolute;
+    float:left;
+    left:5%;
+    top:100px;
+    border-radius: 10px;
+    padding:5px;
+}
+
+#signin{
+    position:absolute;
+    left:5%;
+    top:40%;
+    background-color:#F2FEFE;
+    text-align: right;
+    padding:30px;
+    border-radius:10px;
+}   
+
+input {
+    outline: none;
+}
+
+input:focus{
+    border: 2px solid #555;
+}
+
+.clear{
+    clear:both;
+}
+
+button {
+    font-size: 85%;
+    border-radius: 10px;
+    margin-right:10px;
+}
+
+#intro{
+    position:relative;
+    top:200px;
+    left:5%;
+    font-size:250%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+#apptrack{
+    position:relative;
+    top:350px;
+    font-size:200%;
+    text-align:left;
+    margin-left:20px;
+    text-align: right;
+    width:500px;
+}
+
+#sample{
+    position:relative;
+    float:right;
+    top:150px;
+    right:50px;
+    background-color: #99D3DF;
+    width:800px;
+    border-radius: 25px;
+}
+
+#sample img{
+    width:800px;
+}
+
+#apply{
+    background-color: white;
+}
+
+.applyimage{ 
+    background-color: #99D3DF;
+    border-radius: 10px;
+    margin:20px;
+    padding:10px;
+    font-size:80%; 
+}
+
+.sections{
+    position: relative;
+    top:200px;
+    height:300px;
+    padding:100px 5%; 
+    font-size:150%;
+}
+
+#last{
+    background-color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+.sections a {
+    background-color: white;
+}

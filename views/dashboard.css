@@ -1,0 +1,90 @@
+
+
+body
+{
+    background-color: #F3FFFF;  
+    font-family:lato;
+}
+
+#title{
+    position:absolute;
+    float:right;
+    right:1%;
+    font-size:300%;
+    color:#AEAEAE;
+}
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #88BBD6;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: blac;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+#status{
+    position:relative;
+    float:left;
+    left:220px;
+    top:50px;
+    font-size: 150%;
+    color:#88BBD6;
+}
+
+
+
+table{
+    table-layout: fixed;
+    float:right;
+}
+.tbl-header{
+  background-color: #88BBD6;
+ }
+.tbl-content{
+  height:100px;
+  overflow-x:auto;
+  margin-top: 0px;
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 10px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #AEAEAE;
+  border-bottom: solid 1px #88BBD6;
+}
