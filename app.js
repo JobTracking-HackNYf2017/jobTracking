@@ -12,7 +12,13 @@ var app = express();
 /***************************
  *        config           *
  ***************************/
-mongoose.connect('mongodb://localhost/jobApp');
+ var dburl="mongodb://root:traec12@ds121225.mlab.com:21225/jobtracking";
+ mongoose.connect(dburl, {
+   useMongoClient: true
+ });
+ var db = mongoose.connection;
+ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
