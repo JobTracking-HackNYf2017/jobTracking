@@ -76,7 +76,7 @@ passport.use(new GoogleStrategy({
             } else {
               var newUser = new User();
 
-              newUser.id = profile.id;
+              newUser._id = profile.id;
               newUser.token = token;
               newUser.name = profile.displayName;
               newUser.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
