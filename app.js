@@ -8,6 +8,11 @@ var bodyParser= require('body-parser');
 var session=require('express-session');
 var path= require('path');
 var app = express();
+var fs = require('fs')
+var jsondata;
+fs.readFile('testing.json', function (err, data) {
+    jsondata= JSON.parse(data)
+});
 //db Connection MongoDB
 /***************************
  *        config           *
@@ -55,7 +60,7 @@ require('./passport')(passport);
 // route for showing the profile page
 app.get('/dashboard', isLoggedIn, function(req, res) {
   res.render('dashboard.ejs', {
-    user: req.user // get the user out of session and pass to template
+    data:jsondata
   });
 });
 

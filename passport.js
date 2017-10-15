@@ -4,11 +4,13 @@ var config = require('./credentials.json');
 var gmailAPI = require('node-gmail-api');
 var base64 = require('base-64');
 var _ = require('underscore');
+appli = [];
+ singleApplication={};
 
-var appli;
+
 module.exports = function(passport) {
 
-  appli = [];
+
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -48,8 +50,6 @@ module.exports = function(passport) {
 
       // make the code asynchronous
       // User.findOne won't fire until we have all our data back from Google
-      process.nextTick(function() {
-        return new Promise(function(resolve,reject){
         var email = new gmailAPI(token);
         var messages = email.messages('label:inbox "Thank you for your interest" newer_than:1y', {
           max: 10,
@@ -61,18 +61,20 @@ module.exports = function(passport) {
               var obj = _.findWhere(d.payload.headers, {
                 name: 'Subject'
               });
-              var singleApplication = {
-                Subject: obj,
-                introEmail: d.snippet,
-                company: companies[i],
-              };
+
+                singleApplication.Subject= obj.value,
+                singleApplication.introEmail= d.snippet,
+                singleApplication.company= companies[i],
+
+                console.log(singleApplication)
               appli.push(singleApplication);
               break;
             }
           }
+
         });
-        resolve(true);
-      }).then(function(value){
+
+
         // check if the user is already logged in
         process.nextTick(function() {
           User.findOne({
@@ -114,8 +116,6 @@ module.exports = function(passport) {
             }
           });
         });
-      });
-      });
 
     }));
 };
