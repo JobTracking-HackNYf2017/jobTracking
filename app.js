@@ -6,7 +6,7 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser= require('body-parser');
 var session=require('express-session');
-
+var path= require('path');
 var app = express();
 //db Connection MongoDB
 /***************************
@@ -24,6 +24,8 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
+//static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 
@@ -45,14 +47,14 @@ app.get('/google50bd14559a8ebfe0.html', function(req,res){
 // route for home page
 // routes for testing ( they will change once front is done)
 app.get('/', function(req, res) {
-  res.render('index.ejs'); // render home
+  res.render('landingpage.ejs'); // render home
 });
 
 
 require('./passport')(passport);
 // route for showing the profile page
 app.get('/dashboard', isLoggedIn, function(req, res) {
-  res.render('profile.ejs', {
+  res.render('dashboard.ejs', {
     user: req.user // get the user out of session and pass to template
   });
 });

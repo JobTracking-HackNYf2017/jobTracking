@@ -8,7 +8,7 @@ var _ = require('underscore');
 var appli;
 module.exports = function(passport) {
 
-appli=[];
+  appli = [];
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -49,7 +49,7 @@ appli=[];
       // make the code asynchronous
       // User.findOne won't fire until we have all our data back from Google
       process.nextTick(function() {
-
+        return new Promise(function(resolve,reject){
         var email = new gmailAPI(token);
         var messages = email.messages('label:inbox "Thank you for your interest" newer_than:1y', {
           max: 10,
@@ -62,57 +62,60 @@ appli=[];
                 name: 'Subject'
               });
               var singleApplication = {
-                Subject : obj,
-                introEmail : d.snippet,
-                company : companies[i],
+                Subject: obj,
+                introEmail: d.snippet,
+                company: companies[i],
               };
               appli.push(singleApplication);
-              i=companies.length+1;
+              break;
             }
           }
         });
+        resolve(true);
+      }).then(function(value){
         // check if the user is already logged in
-        User.findOne({
-          '_id': profile.id
-        }, function(err, user) {
-          if (err)
-            return done(err);
+        process.nextTick(function() {
+          User.findOne({
+            '_id': profile.id
+          }, function(err, user) {
+            if (err)
+              return done(err);
 
-          if (user) {
-            // if there is a user id already but no token (user was linked at one point and then removed)
-            if (!user.token) {
+            if (user) {
+              // if there is a user id already but no token (user was linked at one point and then removed)
+              if (!user.token) {
 
-              user.token = token;
-              user.name = profile.displayName;
-              user.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
-              user.job = appli;
-              user.save(function(err) {
+                user.token = token;
+                user.name = profile.displayName;
+                user.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
+                user.job = appli;
+                user.save(function(err) {
+                  if (err)
+                    return done(err);
+
+                  return done(null, user);
+                });
+              }
+
+              return done(null, user);
+            } else {
+              var newUser = new User();
+              newUser._id = profile.id;
+              newUser.token = token;
+              newUser.name = profile.displayName;
+              newUser.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
+              newUser.job = appli;
+              newUser.save(function(err) {
                 if (err)
                   return done(err);
 
-                return done(null, user);
+                return done(null, newUser);
               });
             }
-
-            return done(null, user);
-          } else {
-            var newUser = new User();
-            newUser._id = profile.id;
-            newUser.token = token;
-            newUser.name = profile.displayName;
-            newUser.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
-            newUser.job=appli;
-            newUser.save(function(err) {
-              if (err)
-                return done(err);
-
-              return done(null, newUser);
-            });
-          }
+          });
         });
-
+      });
       });
 
     }));
-
 };

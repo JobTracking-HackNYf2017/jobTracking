@@ -20,7 +20,7 @@
     text-align: right;
     padding:30px;
     border-radius:10px;
-}   
+}
 
 input {
     outline: none;
@@ -77,19 +77,19 @@ button {
     background-color: white;
 }
 
-.applyimage{ 
+.applyimage{
     background-color: #99D3DF;
     border-radius: 10px;
     margin:20px;
     padding:10px;
-    font-size:80%; 
+    font-size:80%;
 }
 
 .sections{
     position: relative;
     top:200px;
     height:300px;
-    padding:100px 5%; 
+    padding:100px 5%;
     font-size:150%;
 }
 
@@ -104,3 +104,15 @@ a {
 .sections a {
     background-color: white;
 }
+* {
+        box-sizing: border-box;
+        background-color: #F3FFFF;
+    }
+
+body {
+        margin:0;
+        padding:0;
+        text-align: center;
+        font-family: lato;
+        color:#AEAEAE;
+    }
