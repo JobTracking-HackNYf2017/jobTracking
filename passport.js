@@ -2,12 +2,8 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var User = require('./app/models/user');
 var config = require('./credentials.json');
 var gmailAPI = require('node-gmail-api');
-
-
-var emails = function(tok) {
-
-  return messages;
-}
+var base64 = require('base-64');
+var _ = require('underscore');
 
 module.exports = function(passport) {
 
@@ -22,6 +18,9 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
   });
 });
+
+
+
 
 // code for login (use('local-login', new LocalStategy))
 // code for signup (use('local-signup', new LocalStategy))
@@ -43,21 +42,24 @@ passport.use(new GoogleStrategy({
       // User.findOne won't fire until we have all our data back from Google
       process.nextTick(function() {
         var email = new gmailAPI(token);
-        messages = email.messages('label:inbox', {max: 10});
+      var messages = email.messages('label:inbox "Thank you for your interest" newer_than:1y', {max: 10,format:'full'});
 
         messages.on('data', function (d) {
-            console.log(d.snippet)
+          var obj = _.findWhere(d.payload.headers, {name: 'Subject'});
+          console.log(obj.value);
+          var text = d.snippet;
+          console.log('text ')
+          console.log(text);
           })
         // check if the user is already logged in
         console.log(profile);
           User.findOne({
-            'id': profile.id
+            '_id': profile.id
           }, function(err, user) {
             if (err)
               return done(err);
 
             if (user) {
-
               // if there is a user id already but no token (user was linked at one point and then removed)
               if (!user.token) {
                 user.token = token;
