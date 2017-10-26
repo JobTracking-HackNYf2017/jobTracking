@@ -17,7 +17,10 @@ fs.readFile('testing.json', function (err, data) {
 /***************************
  *        config           *
  ***************************/
- var dburl="mongodb://root:traec12@ds121225.mlab.com:21225/jobtracking";
+var user="username"
+var password="password";
+var externalUrl="url"
+ var dburl=`mongodb://${user}:${password}@${externalUrl}/jobtracking`;
  mongoose.connect(dburl, {
    useMongoClient: true
  });
